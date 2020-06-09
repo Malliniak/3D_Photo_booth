@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace PhotoBooth.Screenshot
 {
     public class ScreenshotHandler
     {

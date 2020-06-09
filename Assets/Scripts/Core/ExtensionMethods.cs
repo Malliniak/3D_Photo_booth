@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
-namespace DefaultNamespace
+namespace PhotoBooth.Core
 {
     public static class ExtensionMethods
     {
@@ -17,5 +19,21 @@ namespace DefaultNamespace
                 list.Add(array[i]);
             }
         }
+
+        public static float GetColorByEnum(this Color color, Rgb colorEnum)
+        {
+            switch (colorEnum)
+            {
+                case Rgb.RED:
+                    return color.r;
+                case Rgb.GREEN:
+                    return color.g;
+                case Rgb.BLUE:
+                    return color.b;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(colorEnum), colorEnum, null);
+            }
+        }
+
     }
 }
