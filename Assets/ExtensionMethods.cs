@@ -17,23 +17,5 @@ namespace DefaultNamespace
                 list.Add(array[i]);
             }
         }
-
-        // public static void RefreshList<T>(this List<T> list)
-        // {
-        //     if (list.Count == 1 && list[0] == null)
-        //     {
-        //         list.TrimExcess();
-        //         return;
-        //     }
-        //         
-        //     for (int index = 0; index < list.Count; index++)
-        //     {
-        //         if (list[index] == default(T))
-        //         {
-        //             list[index] = list[index + 1];
-        //             list[index + 1] = default;
-        //         }
-        //     }
-        // }
     }
 }
