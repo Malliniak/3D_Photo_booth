@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PhotoBoothController : MonoBehaviour
 {
@@ -8,6 +11,8 @@ public class PhotoBoothController : MonoBehaviour
 
     private GameObject[] _models;
     private ModelsLoader _modelsLoader;
+    private ScreenshotHandler _screenshotHandler;
+    private Canvas[] _uiCanvas;
     private int activeModel;
     [SerializeField] private float _modelTranslationSpeed = 2f;
     [SerializeField] private float _modelMinScale = 0.05f;
@@ -26,7 +31,9 @@ public class PhotoBoothController : MonoBehaviour
 
     private void Awake()
     {
+        _uiCanvas = FindObjectsOfType<Canvas>();
         _modelsLoader = new ModelsLoader(Camera.main);
+        _screenshotHandler = new ScreenshotHandler(Camera.main, _uiCanvas);
     }
 
     private void Start()
@@ -50,6 +57,7 @@ public class PhotoBoothController : MonoBehaviour
     private void InstantiateModels(IList<GameObject> meshes)
     {
         GameObject modelsParent = new GameObject("Models");
+        modelsParent.layer = 8;
         modelsParent.transform.parent = transform;
         
         // In this scenario, where we are generating everything at once and in order to save time, I am not going to write Object Pool system.
@@ -79,4 +87,21 @@ public class PhotoBoothController : MonoBehaviour
         _models[activeModel].SetActive(true);
     }
 
+    public void TakeSnapshot()
+    {
+        StartCoroutine(OnPostRender());
+    }
+
+    private IEnumerator OnPostRender()
+    {
+        
+        for (int index = 0; index < _uiCanvas.Length; index++)
+        {
+            Canvas uiCanvas = _uiCanvas[index];
+            uiCanvas.gameObject.SetActive(false);
+        }
+        
+        yield return new WaitForEndOfFrame();
+        _screenshotHandler.TakeScreenShot(_models[activeModel].name);
+    }
 }
