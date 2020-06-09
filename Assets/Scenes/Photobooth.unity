@@ -166,7 +166,7 @@ MonoBehaviour:
   _modelTranslationSpeed: 4
   _modelMinScale: 0.05
   _modelMaxScale: 2.5
-  _defaultScale: {x: 0.3, y: 0.3, z: 0.3}
+  _defaultScale: 0.3
 --- !u!1 &360011206
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,7 +858,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 254753889}
         m_MethodName: TakeSnapshot
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

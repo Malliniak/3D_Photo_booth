@@ -1,15 +1,21 @@
 ﻿using System;
-using System.Collections;
 using DG.Tweening;
 using UnityEngine;
+
 public class SingleModelController : MonoBehaviour
 {
-    private PhotoBoothController _photoBoothController;
 
+    #region Private Fields
+
+    private PhotoBoothController _photoBoothController;
     private bool _shouldListenToInput;
     private float _translationSpeed = 1;
     private float _modelMaxSize = 1;
     private float _modelMinSize = 0;
+
+    #endregion
+
+    #region Public Properties
 
     public PhotoBoothController PhotoBoothController
     {
@@ -33,6 +39,10 @@ public class SingleModelController : MonoBehaviour
         _shouldListenToInput = controlMode == ControlMode.MODEL;
     }
 
+    #endregion
+
+    #region MonoBehaviour Callbacks
+
     private void Update()
     {
         if (_shouldListenToInput == false || gameObject.activeSelf == false)
@@ -55,6 +65,10 @@ public class SingleModelController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
             transform.rotation = Quaternion.identity;
     }
+
+    #endregion
+
+    #region Movement Handlers
 
     private Vector3 GetRotationAxisBasedOnKeyPressed(KeyCode keyCode)
     {
@@ -90,4 +104,6 @@ public class SingleModelController : MonoBehaviour
         endScale = Mathf.Max(_modelMinSize, endScale);
         transform.DOScale(endScale, 0.4f);
     }
+
+    #endregion
 }
