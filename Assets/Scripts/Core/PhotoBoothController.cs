@@ -55,7 +55,8 @@ namespace PhotoBooth.Core
             // Gets all Canvases in order to turn them off during screenshot.
             _uiCanvas = FindObjectsOfType<Canvas>();
             _camera = Camera.main;
-        
+            _modelsLoader = new ModelsLoader();
+
             _screenshotHandler = new ScreenshotHandler(_camera, _uiCanvas);
         }
 
@@ -66,16 +67,7 @@ namespace PhotoBooth.Core
         
             //Instantiate models game objects.
             InstantiateModels(_models);
-        }
-
-        private void Update()
-        {
-            // Changes translation mode.
-        
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                OnControlModeChanged(ControlMode.MODEL);
-            }
+            OnControlModeChanged(ControlMode.MODEL);
         }
 
         #endregion
