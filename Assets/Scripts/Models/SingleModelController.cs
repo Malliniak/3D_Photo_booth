@@ -56,10 +56,10 @@ namespace PhotoBooth.Models
             if (!Input.anyKey) 
                 return;
         
-            Vector3 newTransform = GetTransformAxisBaseOnKeyPressed(KeyCode.LeftShift);
+            Vector3 newTransform = GetAxisBaseOnKeyPressed(KeyCode.LeftShift);
             transform.position += newTransform * (Time.deltaTime * _translationSpeed);
 
-            Vector3 newRotation = GetRotationAxisBasedOnKeyPressed(KeyCode.LeftShift);
+            Vector3 newRotation = GetAxisBaseOnKeyPressed(KeyCode.LeftShift, true);
             transform.Rotate(newRotation);
         
             if(Input.GetKeyDown(KeyCode.T))
@@ -73,22 +73,24 @@ namespace PhotoBooth.Models
 
         #region Movement Handlers
 
-        private Vector3 GetRotationAxisBasedOnKeyPressed(KeyCode keyCode)
+        /// <summary>
+        ///     Based on modifier, changes Vector3 axis translation.
+        /// </summary>
+        /// <param name="keyCode"></param>
+        /// <returns></returns>
+        private Vector3 GetAxisBaseOnKeyPressed(KeyCode keyCode, bool shouldUseArrows = false)
         {
             Vector3 newTransform;
 
-            if (Input.GetKey(keyCode))
-                newTransform = new Vector3(0, -Input.GetAxisRaw("HorizontalArrow"), Input.GetAxisRaw("VerticalArrow"));
-            else
-                newTransform = new Vector3(Input.GetAxisRaw("VerticalArrow"), -Input.GetAxisRaw("HorizontalArrow"), 0);
-        
-            return newTransform;
-        }
-
-        private Vector3 GetTransformAxisBaseOnKeyPressed(KeyCode keyCode)
-        {
-            Vector3 newTransform;
-
+            if (shouldUseArrows)
+            {
+                if (Input.GetKey(keyCode))
+                    newTransform = new Vector3(0, -Input.GetAxisRaw("HorizontalArrow"), Input.GetAxisRaw("VerticalArrow"));
+                else
+                    newTransform = new Vector3(Input.GetAxisRaw("VerticalArrow"), -Input.GetAxisRaw("HorizontalArrow"), 0);
+                return newTransform;
+            }
+            
             if (Input.GetKey(keyCode))
                 newTransform = new Vector3(-Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
             else
@@ -97,6 +99,9 @@ namespace PhotoBooth.Models
             return newTransform;
         }
 
+        /// <summary>
+        ///     Zooms model based on Mouse ScrollWheel
+        /// </summary>
         private void ZoomModel()
         {
             float mouseScrollAxis = Input.GetAxis("Mouse ScrollWheel");
