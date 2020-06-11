@@ -17,8 +17,7 @@ namespace PhotoBooth.Screenshot
         private readonly string _dataPath = $"{Application.dataPath}/Output";
 
         #endregion
-
-
+        
         public ScreenshotHandler(Camera camera, Canvas[] uiCanvases)
         {
             _camera = camera;

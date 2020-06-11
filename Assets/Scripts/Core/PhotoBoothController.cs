@@ -70,6 +70,14 @@ namespace PhotoBooth.Core
             OnControlModeChanged(ControlMode.MODEL);
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                OnControlModeChanged(ControlMode.MODEL);
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+                OnControlModeChanged(ControlMode.LIGHT);
+        }
+
         #endregion
 
         #region Models Handling
@@ -87,7 +95,7 @@ namespace PhotoBooth.Core
             for (int i = 0; i < meshes.Count; i++)
             {
                 meshes[i] = Instantiate(meshes[i], Vector3.zero, Quaternion.identity, modelsParent.transform);
-                meshes[i].transform.localScale = new Vector3(_defaultScale, _defaultScale, _defaultScale);
+                meshes[i].transform.localScale = ExtensionMethods.Vector3FromValue(_defaultScale);
                 SingleModelController controller = meshes[i].AddComponent<SingleModelController>();
                 controller.PhotoBoothController = this;
                 if(i>0)

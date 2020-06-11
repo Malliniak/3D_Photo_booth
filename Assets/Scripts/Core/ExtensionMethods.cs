@@ -34,6 +34,8 @@ namespace PhotoBooth.Core
                     throw new ArgumentOutOfRangeException(nameof(colorEnum), colorEnum, null);
             }
         }
-
+        
+        public static Vector3 Vector3FromValue(float value) => new Vector3(value, value, value);
+        public static Vector3 Vector3FromValue(int value) => new Vector3(value, value, value);
     }
 }
